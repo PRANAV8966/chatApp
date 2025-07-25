@@ -18,13 +18,23 @@ class UserService {
 
      async getUser(id, options) {
         try {
-            const user = await this.userService.getUser(id, options);
+            const user = await this.userService.getUser(id);
             return user;
         } catch (error) {
             console.log('some error occured at service', error);
             throw error;
         }
      }
+
+     async getUserByEmail(Email) {
+        try {
+            const User = await this.userService.getUserByEmail(Email);
+            return User;
+        } catch (error) {
+            console.log('something went wrong in repository', error);
+            throw error;
+        }
+    }
 
      async destroy(id) {
         try {

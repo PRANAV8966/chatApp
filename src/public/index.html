@@ -47,12 +47,14 @@
                     contactNumber,
                     name
             });
-
             const result = response.data.data;
             alert('successfully signed-Up!!');
             document.getElementById('signupForm').reset();
             return;
       } catch (error) {
+          if (error.response && error.response.status === 409) {
+            alert("User already exists!");
+          }
             alert('signUp failed! error code:404 | USER NOT FOUND!!');
             console.log(error);
             return;

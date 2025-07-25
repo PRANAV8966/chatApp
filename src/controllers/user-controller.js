@@ -3,6 +3,12 @@ const userController = new UserService();
 
 const createUser = async (req, res) => {
     try {
+        const response = await userController.getUserByEmail(req.body.email);
+        if (response) {
+            return res.status(409).json({
+                message:"user already exists, please log In",
+            });
+        }
         const user = await userController.createUser(req.body);
         return res.status(200).json({
             data:user,
@@ -41,7 +47,8 @@ const getUser = async (req, res) => {
     }
 }
 
+
 module.exports = {
     createUser,
-    getUser
+    getUser,
 }

@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="container">
-    <form class="signup-form" id="signupForm">
+    <form class="signup-form" id="signupForm" onsubmit="handleSignUp(event)">
       <h2>Create Your Chat Account</h2>
 
       <label for="name">Full Name</label>
@@ -20,6 +20,9 @@
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required />
 
+      <label for="contactNumber">Contact Number</label>
+      <input type="tel" id="contactNumber" name="contactNumber" required />
+
       <button type="submit">Sign Up</button>
 
       <p class="login-link">
@@ -27,5 +30,34 @@
       </p>
     </form>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    async function handleSignUp(event) {
+      try {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const contactNumber = document.getElementById('contactNumber').value;
+            const name = document.getElementById('name').value
+
+            const response = await axios.post('http://localhost:3000/api/signUp', {
+                    email,
+                    password,
+                    contactNumber,
+                    name
+            });
+
+            const result = response.data.data;
+            alert('successfully signed-Up!!');
+            document.getElementById('signupForm').reset();
+            return;
+      } catch (error) {
+            alert('signUp failed! error code:404 | USER NOT FOUND!!');
+            console.log(error);
+            return;
+      }
+    }
+  </script>
 </body>
 </html>
